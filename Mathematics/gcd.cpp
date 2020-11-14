@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-int gcd(int n1, int n2);
+int gcd(int, int);
 
 int main(){
     int n1, n2;
