@@ -24,8 +24,7 @@ int main() {
 // You need to complete this function
 int absolute(int I) {
     // Your code here
-    if (I >= 0)
-        return I;
-    else
-        return (~I + 1);
+    //return (I >= 0) ? I : (~I + 1);
+    int mask = I >> 31;
+    return (I + mask) ^ mask;
 }
