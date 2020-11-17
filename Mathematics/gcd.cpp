@@ -1,31 +1,31 @@
 #include<iostream>
+#include<math.h>
 using namespace std;
 
 int gcd(int, int);
 
 int main(){
     int n1, n2;
+    
+    cout << "Enter two Numbers :" << endl;
     cin >> n1;
     cin >> n2;
 
-    if (n1 == 0 || n2 == 0)
-        cout << "Invalid input \n";
-        else{
-            if (n1 < 0)
-                n1 *= -1;
-            if (n2 < 0)
-                n2 *= -1;
+    int res = gcd(n1, n2);
+    int lcm = (n1 * n2) / (float)res;
 
-            int res = gcd(n1, n2);
-            int lcm = (n1 * n2) / res;
-
-            cout << "gcd(" << n1 << ", " << n2 << ") = " << res << endl;
-            cout << "lcm(" << n1 << ", " << n2 << ") = " << lcm << endl;
-            return 0;
-        }
+    cout << "gcd(" << n1 << ", " << n2 << ") = " << res << endl;
+    cout << "lcm(" << n1 << ", " << n2 << ") = " << lcm << endl;
+    return 0;
 }
 
 int gcd(int n1, int n2){
+    if (n1 < 0)
+        n1 *= -1;
+
+    if (n2 < 0)
+        n2 *= -1;
+
     if (n2 % n1 == 0)
         return n1;
 
@@ -34,11 +34,11 @@ int gcd(int n1, int n2){
 
     int i;
     int min = (n1 < n2) ? n1 : n2;
-    int mid = min/2;
+    int mid = min / 2;
     
-    for (i = mid; i >= 1; i--)
+    for (i = mid; i >= sqrt(min); i--)
         if (n1 % i == 0 && n2 % i == 0)
-            break;
+            return i;
     
-    return i;
+    return 1;
 }

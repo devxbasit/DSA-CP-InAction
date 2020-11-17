@@ -10,15 +10,19 @@ using namespace std;
 
 int digitsInFactorial(int N){
     // code here
-    if(N < 0)
-        return 0;
-        
-    if(N == 1)
-        return 1;
-    
     // kamenetsky's formula
-    double d = (N * log10((N / M_E))) + (log10((2 * M_PI * N)) / 2.0);
-    return floor(d + 1);
+    // double d = (N * log10((N / M_E))) + (log10((2 * M_PI * N)) / 2.0);
+    // return floor(d + 1);
+
+    if(N <= 0)
+        return 0;
+    double count = 0.0;
+    
+    for (int i = N; i > 0; i--)
+        count += log10(i);
+        
+    return floor(count + 1.0);
+        
 }
 
 // { Driver Code Starts.
