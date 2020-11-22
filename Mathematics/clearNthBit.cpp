@@ -9,7 +9,7 @@ int main(){
     cin >> n;
     cin >> k;
 
-    cout << "Output: " << clearNthBit(n, k) << endl;
+    cout << "Output: " << clearNthBit(n, k) << "\n";
     
     return 0;
 }
