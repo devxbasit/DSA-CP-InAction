@@ -8,10 +8,10 @@ public class BinarySearch {
             if (arr[mid] == key)
             return mid + 1;
             
-            if (key > arr[mid])
-                return BSearch(arr, mid + 1, uBound, key);
-            
-            return BSearch(arr, lBound, mid - 1, key);
+            if (key < arr[mid])
+                return BSearch(arr, lBound, mid - 1, key);
+                
+            return BSearch(arr, mid + 1, uBound, key);
         }
 
         return -1;
