@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class BinarySearch {
     public static int BSearch(int arr[], int lBound, int uBound, int key){
         if (lBound <= uBound){
-            int mid = (lBound + uBound) / 2;
+            int mid = lBound + (uBound - lBound) / 2;
             
             if (arr[mid] == key)
             return mid + 1;
@@ -27,7 +27,7 @@ public class BinarySearch {
         Scanner sc = new Scanner(System.in);
         int key = sc.nextInt();
         sc.close();
-
+        
 
         int index = BSearch(arr, 0, arr.length - 1, key);
         

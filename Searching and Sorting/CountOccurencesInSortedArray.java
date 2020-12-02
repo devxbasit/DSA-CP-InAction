@@ -28,12 +28,13 @@ public class CountOccurencesInSortedArray {
         if(lb <= ub){
             int mid = (lb + ub) / 2;
 
-            if (mid == 0 || arr[mid] == x && arr[mid] != arr[mid - 1])
+            if (mid == 0 || arr[mid] == x && x > arr[mid - 1])
                 return mid;
 
             if (x > arr[mid])
                 return firstIndex(arr, mid + 1, ub, x);
             
+            // ***
             // otherwise move towards left side
             return firstIndex(arr, lb, mid - 1, x);
         }
@@ -45,12 +46,13 @@ public class CountOccurencesInSortedArray {
         if(lb <= ub){
             int mid = (lb + ub) / 2;
 
-            if (mid == n - 1 || arr[mid] == x && arr[mid] != arr[mid + 1])
+            if (mid == n - 1 || arr[mid] == x && x < arr[mid + 1])
                 return mid;
 
             if (x < arr[mid])
                 return lastIndex(arr, lb, mid - 1, x, n);
-        
+ 
+                // ***
             // otherwise move towards right side
             return lastIndex(arr, mid + 1, ub, x, n);
         }
