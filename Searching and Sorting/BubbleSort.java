@@ -18,8 +18,7 @@ class BubbleSort{
         }
     }
     public static void main(String[] args) {
-        int arr[] = {5, 1, 4, 2, 8};
-
+        int arr[] = {4, 3, 2, -10, 12, 1, 1, 5, 6};
         
         for (int i : arr)
             System.out.printf("%d\t", i);

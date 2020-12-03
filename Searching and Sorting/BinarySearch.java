@@ -16,7 +16,7 @@ public class BinarySearch {
 
         return -1;
     }
-    public static void main(String[] argss){
+    public static void main(String[] args){
         int arr[] = {-10, 1, 3, 7, 9, 16, 25, 30};
         
         for (int i : arr)
