@@ -1,11 +1,11 @@
-// { Driver Code Starts
 //Initial Template for Java
 
 import java.util.*;
 import java.io.*;
 import java.io.*;
 
-class MergeWithoutExtraSpace_1
+public abstract class MergeWithoutExtraSpace_1
+
 {
     public static void main (String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -48,20 +48,28 @@ class MergeSort
     public static void merge(int arr1[], int arr2[], int n, int m) 
     {
         // code here 
-        int i = 0;
+        int i, index;
         int temp;
         
-        while (i < n){
-            if (arr2[0] < arr1[i]){
-                temp = arr1[i];
-                arr1[i] = arr2[0];
-                arr2[0] =temp;
-                Arrays.sort(arr2);
-            } 
-            i++;
+        for (int j = m - 1; j >= 0; j--){
+            i = -1;
+            index = -1;
+            
+            while (++i < n)
+                if(arr1[i] > arr2[j]){
+                    index = i;
+                    break;
+                }
+                    
+            if (index != -1){
+                temp = arr2[j];
+                arr2[j] = arr1[n - 1];
+                
+                for(int k = n - 1; k > index; k--)
+                    arr1[k] = arr1[k - 1];
+                    
+                arr1[index] = temp;
+            }
         }
-        
-        
-        
     }
 }

@@ -1,3 +1,4 @@
+// { Driver Code Starts
 //Initial Template for Java
 
 import java.util.*;
@@ -5,7 +6,6 @@ import java.io.*;
 import java.io.*;
 
 public abstract class MergeWithoutExtraSpace_2
-
 {
     public static void main (String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -45,31 +45,47 @@ public abstract class MergeWithoutExtraSpace_2
 
 class MergeSort
 {
+    public static void swap(int arr[], int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    
+    public static void swap2(int arr1[], int i, int arr2[], int j){
+        int temp = arr1[i];
+        arr1[i] = arr2[j];
+        arr2[j] = temp;
+    }
+    
+    public static int nextGap(int gap){
+        if (gap <= 1)
+            return 0;
+            
+        return (gap / 2) + (gap % 2);
+    }
+    
     public static void merge(int arr1[], int arr2[], int n, int m) 
     {
         // code here 
-        int i, index;
-        int temp;
+        int gap = nextGap(n + m);
+        int i, j;
         
-        for (int j = m - 1; j >= 0; j--){
-            i = -1;
-            index = -1;
-            
-            while (++i < n)
-                if(arr1[i] > arr2[j]){
-                    index = i;
-                    break;
-                }
+        while(gap >= 1){
+            for(i = 0; i + gap < n; i++)
+                if(arr1[i] > arr1[i + gap])
+                    swap(arr1, i, i + gap);
                     
-            if (index != -1){
-                temp = arr2[j];
-                arr2[j] = arr1[n - 1];
-                
-                for(int k = n - 1; k > index; k--)
-                    arr1[k] = arr1[k - 1];
+            for (j = (gap > n) ? gap - n : 0; i < n && j < m; i++, j++)
+                if(arr1[i] > arr2[j])
+                    swap2(arr1, i, arr2, j);
                     
-                arr1[index] = temp;
+            if (j < m){
+                for (j = 0; j + gap  < m; j++)
+                    if(arr2[j] > arr2[j + gap])
+                        swap(arr2, j, j + gap);
             }
+            
+            gap  = nextGap(gap);
         }
     }
 }
