@@ -171,9 +171,9 @@ class Tree
                 
             // else root has two childs
             
-            root.data = getInorderPredecessor(root.right);
+            root.data = getInorderPredecessor(root.left);
             
-            root.right = deleteInorderPredecessorRecur(root.right);
+            root.left = deleteInorderPredecessorRecur(root.left);
             
         }
         
