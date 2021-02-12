@@ -1,3 +1,6 @@
+// { Driver Code Starts
+import java.util.*;
+import java.lang.*;
 import java.io.*;
 class GFG
 {
@@ -32,15 +35,12 @@ class Solution
         int i;
         int j;
         
-        int time;
-        
-        Node (int i, int j, int time) {
+        Node(int i, int j) {
             
             this.i = i;
             this.j = j;
-            this.time = time;
+            
         }
-        
         
     }
     
@@ -48,8 +48,9 @@ class Solution
     public int orangesRotting(int[][] grid)
     {
         // Code here
-    
-        // same as method 2, but without delimiter
+        
+        // same as method 1, but using delimiter
+        
      Queue<Node> queue = new LinkedList<>();
      
      
@@ -59,7 +60,7 @@ class Solution
              
              if (grid[i][j] == 2) {
                  
-                 queue.add(new Node(i, j, 0));
+                 queue.add(new Node(i, j));
                  
              }
              
@@ -67,15 +68,31 @@ class Solution
          
      }
      
+     //add delimiter
+    queue.add(new Node(-1, -1));
+     
      
      int maxTime = 0;
      int rowIndexs[] = new int [] {-1, 0, 1, 0};
      int colIndexs[] = new int [] {0, 1, 0, -1};
      
-     
+    
     while (!queue.isEmpty()) {
         
         Node node = queue.remove();
+        
+        if (node.i == -1) {
+            
+            if(!queue.isEmpty()) {
+                
+                maxTime++;
+                queue.add(node);
+                
+            }
+            
+            continue;
+        }
+        
         
         for (int i = 0; i < 4; i++) {
             
@@ -92,16 +109,14 @@ class Solution
             
             grid[r][c] = 2;
             
-            queue.add(new Node(r, c, node.time + 1));
-            maxTime = node.time + 1;
+            queue.add(new Node(r, c));
             
         }
         
     }
      
      
-     
-     for (int i = 0; i < grid.length; i++) {
+    for (int i = 0; i < grid.length; i++) {
          
          for (int j = 0; j < grid[0].length; j++) {
              
