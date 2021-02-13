@@ -1,7 +1,7 @@
 class Solution {
     
-    // same as method 2, but with visited array
-    boolean DFS(char board[][], boolean visited[][], int i, int j, String word, int counter) {
+    //same as method 1, but without visited array
+    boolean DFS(char board[][], int i, int j, String word, int counter) {
         
         
         if (counter >= word.length()) {
@@ -11,20 +11,21 @@ class Solution {
             
         }
         
-        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || visited[i][j] || board[i][j] != word.charAt(counter)) {
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] == ' ' || board[i][j] != word.charAt(counter)) {
             
             return false;
             
         }
         
-        visited[i][j] = true;
+        char temp = board[i][j];
+        board[i][j] = ' ';
         
         int rowIndexes[] = new int []{-1, 0, 1, 0};
         int colIndexes[] = new int[]{0, 1, 0, -1};
         
         for (int x = 0; x < 4; x++) {
             
-            if (DFS(board, visited, i + rowIndexes[x], j + colIndexes[x], word, counter + 1)) {
+            if (DFS(board, i + rowIndexes[x], j + colIndexes[x], word, counter + 1)) {
                 
                 return true;
                 
@@ -32,7 +33,7 @@ class Solution {
             
         }
         
-        visited[i][j] = false;
+        board[i][j] = temp;
         return false;
         
     }
@@ -46,7 +47,7 @@ class Solution {
                 
                 if (board[i][j] == word.charAt(0)) {
                     
-                    if (DFS(board, new boolean[board.length][board[0].length], i, j, word, 0)) {
+                    if (DFS(board, i, j, word, 0)) {
                         
                         return true;
                         
