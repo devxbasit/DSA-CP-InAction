@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.*;
 
-class BookShop_BottomUp {
+// bottom up approach
+class BookShopBottomUp {
 
     public static int maxPages(int price[], int pages[], int n, int amount) {
         
