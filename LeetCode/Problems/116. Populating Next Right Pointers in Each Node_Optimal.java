@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 /*
 // Definition for a Node.
 class Node {
@@ -22,39 +23,40 @@ class Node {
 */
 
 class Solution {
-    
+
     public Node connect(Node root) {
-        
-        if (root == null) return root;
-        
+
+        if (root == null)
+            return root;
+
         Node curr = root;
-        
+
         Node next = null;
-        
-        // consider one level as linked list 
+
+        // consider one level as linked list
         while (curr.left != null) {
-            
+
             next = curr.left;
-            
+
             while (curr != null) {
-                
+
                 curr.left.next = curr.right;
-                
+
                 if (curr.next != null) {
-                    
+
                     curr.right.next = curr.next.left;
-                    
+
                 }
-                
+
                 curr = curr.next;
-                
+
             }
-            
+
             curr = next;
-            
+
         }
-        
+
         return root;
-        
+
     }
 }
