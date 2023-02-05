@@ -1,11 +1,4 @@
-/*
- * @lc app=leetcode id=7 lang=java
- *
- * [7] Reverse Integer
- */
-
-// @lc code=start
-
+// https://leetcode.com/problems/reverse-integer/
 class Solution {
     public int reverse(int x) {
 
@@ -36,5 +29,3 @@ class Solution {
         return reversed;
     }
 }
-
-// @lc code=end
