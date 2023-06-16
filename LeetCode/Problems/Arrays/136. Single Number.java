@@ -1,4 +1,21 @@
 // https://leetcode.com/problems/single-number/
+
+// Approach 1
+class Solution {
+    public int singleNumber(int[] nums) {
+         
+        int res = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+
+            res ^= nums[i];
+        }
+
+        return res;
+    }
+}
+
+// Approach 2
 class Solution {
     public int singleNumber(int[] nums) {
 
@@ -21,10 +38,8 @@ class Solution {
         }
 
         return uniqueElementSum * 2 - arrSum;
-
-        // method 2 - use hashset, add first occurence, and remove second occurence.
-        // return only remaining element in hashset
-
-        // TBD - see bit manipulation approach
     }
 }
+
+// approach - frequency count
+// approach - sort first array, and traverse
