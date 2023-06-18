@@ -1,40 +1,44 @@
-// https://leetcode.com/problems/two-sum/
-class Solution {
+// https://leetcode.com/problems/two-sum/description/
 
+class Solution {
     public int[] twoSum(int[] nums, int target) {
 
-        Map<Integer, Integer> hm = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
 
         for (int i = 0; i < nums.length; i++) {
+            
+            int complement = target - nums[i];
+            
+            if (map.containsKey(complement) && map.get(complement) != i) return new int[] {i, map.get(complement)};
 
-            hm.put(nums[i], i);
+            map.put(nums[i], i);
+
 
         }
 
-        int pair[] = new int[2];
+        return null;
+        
+    }
+}
 
+// Approach 2
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+
+        Map<Integer, Integer> map = new HashMap<>();
+         
+        for (int i = 0; i < nums.length; i++) map.put(nums[i], i);
+
+        
         for (int i = 0; i < nums.length; i++) {
-
-            int diff = target - nums[i];
-
-            if (hm.containsKey(diff)) {
-
-                // target = 6 => ( 3 + 3) (4 + 2)
-                // nums = [3, 2, 4]
-                // nums = [3, 3]
-
-                if (hm.get(diff) == i)
-                    continue;
-
-                pair[0] = i;
-                pair[1] = hm.get(diff);
-
-                break;
-
-            }
+           
+            int complement = target - nums[i];
+            
+            if (map.containsKey(complement) && map.get(complement) != i) return new int[] {i, map.get(complement)};
 
         }
 
-        return pair;
+        return null;
+        
     }
 }
