@@ -16,35 +16,28 @@
  */
 class Solution {
 
-    int val = -1;
-    int i = -1;
+  int val = -1;
+  int i = -1;
 
-    boolean recur(TreeNode root) {
+  boolean recur(TreeNode root) {
+    if (root == null) return false;
 
-        if (root == null)
-            return false;
+    if (recur(root.left)) return true;
 
-        if (recur(root.left))
-            return true;
+    i--;
 
-        i--;
-
-        if (i == 0) {
-
-            val = root.val;
-            return true;
-
-        }
-
-        return recur(root.right);
-
+    if (i == 0) {
+      val = root.val;
+      return true;
     }
 
-    public int kthSmallest(TreeNode root, int k) {
+    return recur(root.right);
+  }
 
-        i = k;
-        recur(root);
+  public int kthSmallest(TreeNode root, int k) {
+    i = k;
+    recur(root);
 
-        return val;
-    }
+    return val;
+  }
 }

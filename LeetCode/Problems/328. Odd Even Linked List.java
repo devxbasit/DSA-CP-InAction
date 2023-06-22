@@ -12,42 +12,36 @@
  */
 class Solution {
 
-    public ListNode oddEvenList(ListNode head) {
+  public ListNode oddEvenList(ListNode head) {
+    if (
+      head == null || head.next == null || head.next.next == null
+    ) return head;
 
-        if (head == null || head.next == null || head.next.next == null)
-            return head;
+    int count = 1;
 
-        int count = 1;
+    ListNode firstEven = head.next;
 
-        ListNode firstEven = head.next;
+    ListNode curr = head;
+    ListNode prev = null;
+    ListNode next = null;
 
-        ListNode curr = head;
-        ListNode prev = null;
-        ListNode next = null;
+    while (curr.next != null) {
+      count++;
+      prev = curr;
 
-        while (curr.next != null) {
+      next = curr.next;
 
-            count++;
-            prev = curr;
+      curr.next = curr.next.next;
 
-            next = curr.next;
-
-            curr.next = curr.next.next;
-
-            curr = next;
-
-        }
-
-        if (count % 2 == 0) {
-
-            prev.next = firstEven;
-
-        } else {
-
-            curr.next = firstEven;
-        }
-
-        return head;
-
+      curr = next;
     }
+
+    if (count % 2 == 0) {
+      prev.next = firstEven;
+    } else {
+      curr.next = firstEven;
+    }
+
+    return head;
+  }
 }

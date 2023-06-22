@@ -1,7 +1,8 @@
-import java.io.*; 
+import java.io.*;
 
 public class XOROfSumOfEveryPossiblePair {
-    /*
+
+  /*
     XOR of Sum of every possible pair of an array
 
     Input: arr = {1, 5, 6}
@@ -10,21 +11,20 @@ public class XOROfSumOfEveryPossiblePair {
     B[4] = { 2, 6, 7, 6, 10, 11, 7, 11, 12}
     So, 2 ^ 6 ^ 7 ^ 6 ^ 10 ^ 11 ^ 7 ^ 6 ^ 11 ^ 12 = 4
 */
-	public static void main (String[] args) 
-	{ 
-        int arr[] = { 1, 5, 6 };
+  public static void main(String[] args) {
+    int arr[] = { 1, 5, 6 };
 
-        // A ^ A = 0
-        
-        // A ^ 0 = A; identity
-        // A ^ 1 = 0
+    // A ^ A = 0
 
-        int res = 0;
+    // A ^ 0 = A; identity
+    // A ^ 1 = 0
 
-        for (int i = 0; i < arr.length; i++){
-            res = res ^ (arr[i] + arr[i]); 
-        }
+    int res = 0;
 
-        System.out.println(res);
-	} 
-} 
+    for (int i = 0; i < arr.length; i++) {
+      res = res ^ (arr[i] + arr[i]);
+    }
+
+    System.out.println(res);
+  }
+}

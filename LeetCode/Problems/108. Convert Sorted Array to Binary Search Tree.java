@@ -16,26 +16,21 @@
  */
 class Solution {
 
-    TreeNode recur(int nums[], int low, int high) {
+  TreeNode recur(int nums[], int low, int high) {
+    if (low > high) return null;
 
-        if (low > high)
-            return null;
+    int mid = low + (high - low) / 2;
 
-        int mid = low + (high - low) / 2;
+    TreeNode root = new TreeNode(nums[mid]);
 
-        TreeNode root = new TreeNode(nums[mid]);
+    root.left = recur(nums, low, mid - 1);
 
-        root.left = recur(nums, low, mid - 1);
+    root.right = recur(nums, mid + 1, high);
 
-        root.right = recur(nums, mid + 1, high);
+    return root;
+  }
 
-        return root;
-
-    }
-
-    public TreeNode sortedArrayToBST(int[] nums) {
-
-        return recur(nums, 0, nums.length - 1);
-
-    }
+  public TreeNode sortedArrayToBST(int[] nums) {
+    return recur(nums, 0, nums.length - 1);
+  }
 }

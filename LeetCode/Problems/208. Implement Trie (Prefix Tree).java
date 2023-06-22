@@ -1,119 +1,92 @@
 // https://leetcode.com/problems/implement-trie-prefix-tree/
 class TrieNode {
 
-    TrieNode childrens[];
-    boolean isEndOfWord;
+  TrieNode childrens[];
+  boolean isEndOfWord;
 
-    /** Initialize your data structure here. */
-    public TrieNode() {
+  /** Initialize your data structure here. */
+  public TrieNode() {
+    childrens = new TrieNode[26];
+  }
 
-        childrens = new TrieNode[26];
+  /** Inserts a word into the trie. */
+  public void insert(TrieNode root, String word) {
+    if (word.length() == 0) return;
 
+    TrieNode node = root;
+
+    for (int i = 0; i < word.length(); i++) {
+      int index = word.charAt(i) - 'a';
+
+      if (node.childrens[index] == null) {
+        node.childrens[index] = new TrieNode();
+      }
+
+      node = node.childrens[index];
     }
 
-    /** Inserts a word into the trie. */
-    public void insert(TrieNode root, String word) {
+    node.isEndOfWord = true;
+  }
 
-        if (word.length() == 0)
-            return;
+  /** Returns if the word is in the trie. */
+  public boolean search(TrieNode root, String word) {
+    TrieNode node = root;
 
-        TrieNode node = root;
+    for (int i = 0; i < word.length(); i++) {
+      int index = word.charAt(i) - 'a';
 
-        for (int i = 0; i < word.length(); i++) {
+      if (node.childrens[index] == null) return false;
 
-            int index = word.charAt(i) - 'a';
-
-            if (node.childrens[index] == null) {
-
-                node.childrens[index] = new TrieNode();
-
-            }
-
-            node = node.childrens[index];
-        }
-
-        node.isEndOfWord = true;
-
+      node = node.childrens[index];
     }
 
-    /** Returns if the word is in the trie. */
-    public boolean search(TrieNode root, String word) {
+    return node != null && node.isEndOfWord;
+  }
 
-        TrieNode node = root;
+  /**
+   * Returns if there is any word in the trie that starts with the given prefix.
+   */
+  public boolean startsWith(TrieNode root, String prefix) {
+    TrieNode node = root;
 
-        for (int i = 0; i < word.length(); i++) {
+    for (int i = 0; i < prefix.length(); i++) {
+      int index = prefix.charAt(i) - 'a';
 
-            int index = word.charAt(i) - 'a';
+      if (node.childrens[index] == null) return false;
 
-            if (node.childrens[index] == null)
-                return false;
-
-            node = node.childrens[index];
-
-        }
-
-        return node != null && node.isEndOfWord;
-
+      node = node.childrens[index];
     }
 
-    /**
-     * Returns if there is any word in the trie that starts with the given prefix.
-     */
-    public boolean startsWith(TrieNode root, String prefix) {
-
-        TrieNode node = root;
-
-        for (int i = 0; i < prefix.length(); i++) {
-
-            int index = prefix.charAt(i) - 'a';
-
-            if (node.childrens[index] == null)
-                return false;
-
-            node = node.childrens[index];
-
-        }
-
-        return node != null;
-
-    }
+    return node != null;
+  }
 }
 
 class Trie {
 
-    TrieNode root;
+  TrieNode root;
 
-    /** Initialize your data structure here. */
-    public Trie() {
+  /** Initialize your data structure here. */
+  public Trie() {
+    root = new TrieNode();
+  }
 
-        root = new TrieNode();
+  /** Inserts a word into the trie. */
+  public void insert(String word) {
+    root.insert(root, word);
+  }
 
-    }
+  /** Returns if the word is in the trie. */
+  public boolean search(String word) {
+    return root.search(root, word);
+  }
 
-    /** Inserts a word into the trie. */
-    public void insert(String word) {
-
-        root.insert(root, word);
-
-    }
-
-    /** Returns if the word is in the trie. */
-    public boolean search(String word) {
-
-        return root.search(root, word);
-
-    }
-
-    /**
-     * Returns if there is any word in the trie that starts with the given prefix.
-     */
-    public boolean startsWith(String prefix) {
-
-        return root.startsWith(root, prefix);
-
-    }
+  /**
+   * Returns if there is any word in the trie that starts with the given prefix.
+   */
+  public boolean startsWith(String prefix) {
+    return root.startsWith(root, prefix);
+  }
 }
-
 /**
  * Your Trie object will be instantiated and called as such:
  * Trie obj = new Trie();

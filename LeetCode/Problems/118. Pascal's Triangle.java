@@ -1,34 +1,28 @@
 // https://leetcode.com/problems/pascals-triangle/
 class Solution {
 
-    public List<List<Integer>> generate(int numRows) {
+  public List<List<Integer>> generate(int numRows) {
+    List<List<Integer>> triangle = new ArrayList<>();
 
-        List<List<Integer>> triangle = new ArrayList<>();
+    triangle.add(Arrays.asList(1));
 
-        triangle.add(Arrays.asList(1));
+    if (numRows == 1) return triangle;
 
-        if (numRows == 1)
-            return triangle;
+    for (int i = 1; i < numRows; i++) {
+      List<Integer> prevRow = triangle.get(i - 1);
 
-        for (int i = 1; i < numRows; i++) {
+      List<Integer> newRow = new ArrayList<>();
 
-            List<Integer> prevRow = triangle.get(i - 1);
+      newRow.add(1);
 
-            List<Integer> newRow = new ArrayList<>();
+      for (int j = 1; j < prevRow.size(); j++) {
+        newRow.add(prevRow.get(j) + prevRow.get(j - 1));
+      }
 
-            newRow.add(1);
-
-            for (int j = 1; j < prevRow.size(); j++) {
-
-                newRow.add(prevRow.get(j) + prevRow.get(j - 1));
-
-            }
-
-            newRow.add(1);
-            triangle.add(newRow);
-        }
-
-        return triangle;
-
+      newRow.add(1);
+      triangle.add(newRow);
     }
+
+    return triangle;
+  }
 }

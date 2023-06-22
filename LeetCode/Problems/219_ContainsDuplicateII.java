@@ -1,20 +1,19 @@
 // https://leetcode.com/problems/contains-duplicate-ii/
 class Solution {
-    public boolean containsNearbyDuplicate(int[] nums, int k) {
-        HashSet<Integer> hs = new HashSet<>();
 
-        int n = nums.length;
+  public boolean containsNearbyDuplicate(int[] nums, int k) {
+    HashSet<Integer> hs = new HashSet<>();
 
-        for (int i = 0; i < n; i++) {
-            if (hs.contains(nums[i]))
-                return true;
+    int n = nums.length;
 
-            hs.add(nums[i]);
+    for (int i = 0; i < n; i++) {
+      if (hs.contains(nums[i])) return true;
 
-            if (i >= k)
-                hs.remove(nums[i - k]);
-        }
+      hs.add(nums[i]);
 
-        return false;
+      if (i >= k) hs.remove(nums[i - k]);
     }
+
+    return false;
+  }
 }

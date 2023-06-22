@@ -12,36 +12,28 @@
 
 class Solution {
 
-    ListNode newHead = null;
+  ListNode newHead = null;
 
-    void recur(ListNode node, ListNode parent) {
+  void recur(ListNode node, ListNode parent) {
+    if (node.next == null) {
+      newHead = node;
 
-        if (node.next == null) {
+      node.next = parent;
 
-            newHead = node;
-
-            node.next = parent;
-
-            return;
-
-        }
-
-        recur(node.next, node);
-
-        node.next = parent;
-
+      return;
     }
 
-    public ListNode reverseList(ListNode head) {
+    recur(node.next, node);
 
-        if (head == null)
-            return null;
-        if (head.next == null)
-            return head;
+    node.next = parent;
+  }
 
-        recur(head, null);
+  public ListNode reverseList(ListNode head) {
+    if (head == null) return null;
+    if (head.next == null) return head;
 
-        return newHead;
+    recur(head, null);
 
-    }
+    return newHead;
+  }
 }

@@ -16,72 +16,60 @@ class Node {
 
 class Solution {
 
-    public Node copyRandomList(Node head) {
+  public Node copyRandomList(Node head) {
+    if (head == null) return null;
 
-        if (head == null)
-            return null;
+    Node node = head;
 
-        Node node = head;
+    while (node != null) {
+      Node newNode = new Node(node.val);
 
-        while (node != null) {
+      newNode.next = node.next;
 
-            Node newNode = new Node(node.val);
+      node.next = newNode;
 
-            newNode.next = node.next;
-
-            node.next = newNode;
-
-            node = node.next.next;
-
-        }
-
-        Node head2 = head.next;
-
-        node = head;
-
-        while (node != null) {
-
-            if (node.random == null) {
-
-                node = node.next.next;
-                continue;
-
-            }
-
-            node.next.random = node.random.next;
-
-            node = node.next.next;
-
-        }
-
-        node = head;
-
-        while (node != null) {
-
-            System.out.println(" " + node.val);
-            System.out.println(" " + node.next.val);
-
-            // if last node
-            if (node.next.next == null) {
-
-                node.next = null;
-                node = null;
-                continue;
-
-            }
-
-            // else fix both node's next links
-
-            Node next = node.next.next;
-
-            node.next.next = next.next;
-
-            node.next = next;
-
-            node = next;
-
-        }
-
-        return head2;
+      node = node.next.next;
     }
+
+    Node head2 = head.next;
+
+    node = head;
+
+    while (node != null) {
+      if (node.random == null) {
+        node = node.next.next;
+        continue;
+      }
+
+      node.next.random = node.random.next;
+
+      node = node.next.next;
+    }
+
+    node = head;
+
+    while (node != null) {
+      System.out.println(" " + node.val);
+      System.out.println(" " + node.next.val);
+
+      // if last node
+      if (node.next.next == null) {
+        node.next = null;
+        node = null;
+        continue;
+      }
+
+      // else fix both node's next links
+
+      Node next = node.next.next;
+
+      node.next.next = next.next;
+
+      node.next = next;
+
+      node = next;
+    }
+
+    return head2;
+  }
 }

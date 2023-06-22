@@ -18,43 +18,43 @@
 
 class Solution {
 
-    class Index {
+  class Index {
 
-        int i;
+    int i;
 
-        Index(int i) {
-            this.i = i;
-        }
+    Index(int i) {
+      this.i = i;
+    }
+  }
 
+  TreeNode bstRecur(int preorder[], int n, Index index, int min, int max) {
+    if (index.i >= n) return null;
+
+    TreeNode root = null;
+
+    if (preorder[index.i] > min && preorder[index.i] < max) {
+      root = new TreeNode(preorder[index.i]);
+
+      index.i = index.i + 1;
+
+      root.left = bstRecur(preorder, n, index, min, root.val);
+
+      root.right = bstRecur(preorder, n, index, root.val, max);
     }
 
-    TreeNode bstRecur(int preorder[], int n, Index index, int min, int max) {
+    return root;
+  }
 
-        if (index.i >= n)
-            return null;
+  public TreeNode bstFromPreorder(int[] preorder) {
+    // time complexity - n
 
-        TreeNode root = null;
-
-        if (preorder[index.i] > min && preorder[index.i] < max) {
-
-            root = new TreeNode(preorder[index.i]);
-
-            index.i = index.i + 1;
-
-            root.left = bstRecur(preorder, n, index, min, root.val);
-
-            root.right = bstRecur(preorder, n, index, root.val, max);
-        }
-
-        return root;
-    }
-
-    public TreeNode bstFromPreorder(int[] preorder) {
-
-        // time complexity - n
-
-        Index index = new Index(0);
-        return bstRecur(preorder, preorder.length, index, Integer.MIN_VALUE, Integer.MAX_VALUE);
-
-    }
+    Index index = new Index(0);
+    return bstRecur(
+      preorder,
+      preorder.length,
+      index,
+      Integer.MIN_VALUE,
+      Integer.MAX_VALUE
+    );
+  }
 }

@@ -10,30 +10,22 @@
  */
 class Solution {
 
-    TreeNode dfs(TreeNode root, TreeNode p, TreeNode q) {
+  TreeNode dfs(TreeNode root, TreeNode p, TreeNode q) {
+    if (root.val == p.val || root.val == q.val) return root;
 
-        if (root.val == p.val || root.val == q.val)
-            return root;
+    TreeNode left = lowestCommonAncestor(root.left, p, q);
 
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
+    TreeNode right = lowestCommonAncestor(root.right, p, q);
 
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
+    if (left == null) return right;
+    if (right == null) return left;
 
-        if (left == null)
-            return right;
-        if (right == null)
-            return left;
+    return root;
+  }
 
-        return root;
+  public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null) return null;
 
-    }
-
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-
-        if (root == null)
-            return null;
-
-        return dfs(root, p, q);
-
-    }
+    return dfs(root, p, q);
+  }
 }

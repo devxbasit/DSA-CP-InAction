@@ -16,60 +16,46 @@
  */
 class Solution {
 
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+  public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    Stack<TreeNode> stack1 = new Stack<>();
+    Stack<TreeNode> stack2 = new Stack<>();
 
-        Stack<TreeNode> stack1 = new Stack<>();
-        Stack<TreeNode> stack2 = new Stack<>();
+    List<List<Integer>> al = new ArrayList<>();
 
-        List<List<Integer>> al = new ArrayList<>();
+    boolean odd = true;
 
-        boolean odd = true;
+    if (root == null) return al;
 
-        if (root == null)
-            return al;
+    stack1.push(root);
 
-        stack1.push(root);
+    while (!stack1.isEmpty() || !stack2.isEmpty()) {
+      List<Integer> tempList = new ArrayList<>();
 
-        while (!stack1.isEmpty() || !stack2.isEmpty()) {
+      while (!stack1.isEmpty()) {
+        TreeNode node = stack1.pop();
 
-            List<Integer> tempList = new ArrayList<>();
+        tempList.add(node.val);
 
-            while (!stack1.isEmpty()) {
+        if (odd) {
+          if (node.left != null) stack2.push(node.left);
 
-                TreeNode node = stack1.pop();
+          if (node.right != null) stack2.push(node.right);
+        } else {
+          if (node.right != null) stack2.push(node.right);
 
-                tempList.add(node.val);
-
-                if (odd) {
-
-                    if (node.left != null)
-                        stack2.push(node.left);
-
-                    if (node.right != null)
-                        stack2.push(node.right);
-
-                } else {
-
-                    if (node.right != null)
-                        stack2.push(node.right);
-
-                    if (node.left != null)
-                        stack2.push(node.left);
-
-                }
-
-            }
-
-            al.add(tempList);
-
-            odd = !odd;
-
-            Stack t = stack1;
-            stack1 = stack2;
-            stack2 = t;
-
+          if (node.left != null) stack2.push(node.left);
         }
+      }
 
-        return al;
+      al.add(tempList);
+
+      odd = !odd;
+
+      Stack t = stack1;
+      stack1 = stack2;
+      stack2 = t;
     }
+
+    return al;
+  }
 }

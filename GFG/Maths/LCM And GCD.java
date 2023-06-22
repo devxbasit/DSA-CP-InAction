@@ -1,18 +1,17 @@
 class Solution {
-    static Long[] lcmAndGcd(Long A, Long B) {
-        // code here
 
-        long gcd = Gcd(A, B);
-        long lcm = (A * B) / gcd;
+  static Long[] lcmAndGcd(Long A, Long B) {
+    // code here
 
-        return new Long[] { lcm, gcd };
-    }
+    long gcd = Gcd(A, B);
+    long lcm = (A * B) / gcd;
 
-    public static long Gcd(long a, long b) {
+    return new Long[] { lcm, gcd };
+  }
 
-        if (b == 0)
-            return a;
+  public static long Gcd(long a, long b) {
+    if (b == 0) return a;
 
-        return Gcd(b, a % b);
-    }
+    return Gcd(b, a % b);
+  }
 }

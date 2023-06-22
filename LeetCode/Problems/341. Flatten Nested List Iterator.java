@@ -22,52 +22,39 @@
  */
 public class NestedIterator implements Iterator<Integer> {
 
-    List<Integer> output;
-    int itr;
+  List<Integer> output;
+  int itr;
 
-    public void helper(List<NestedInteger> nestedList) {
-
-        for (int i = 0; i < nestedList.size(); i++) {
-
-            if (nestedList.get(i).isInteger()) {
-
-                output.add(nestedList.get(i).getInteger());
-
-            } else {
-
-                helper(nestedList.get(i).getList());
-
-            }
-        }
+  public void helper(List<NestedInteger> nestedList) {
+    for (int i = 0; i < nestedList.size(); i++) {
+      if (nestedList.get(i).isInteger()) {
+        output.add(nestedList.get(i).getInteger());
+      } else {
+        helper(nestedList.get(i).getList());
+      }
     }
+  }
 
-    public NestedIterator(List<NestedInteger> nestedList) {
+  public NestedIterator(List<NestedInteger> nestedList) {
+    output = new ArrayList<Integer>();
 
-        output = new ArrayList<Integer>();
+    helper(nestedList);
 
-        helper(nestedList);
+    itr = 0;
+  }
 
-        itr = 0;
+  @Override
+  public Integer next() {
+    int n = output.get(itr);
+    itr++;
+    return n;
+  }
 
-    }
-
-    @Override
-    public Integer next() {
-
-        int n = output.get(itr);
-        itr++;
-        return n;
-
-    }
-
-    @Override
-    public boolean hasNext() {
-
-        return itr < output.size();
-
-    }
+  @Override
+  public boolean hasNext() {
+    return itr < output.size();
+  }
 }
-
 /**
  * Your NestedIterator object will be instantiated and called as such:
  * NestedIterator i = new NestedIterator(nestedList);

@@ -16,31 +16,54 @@
  */
 class Solution {
 
-    TreeNode dfsRecur(int preorder[], int preLow, int preHigh, int inorder[], int inLow, int inHigh) {
+  TreeNode dfsRecur(
+    int preorder[],
+    int preLow,
+    int preHigh,
+    int inorder[],
+    int inLow,
+    int inHigh
+  ) {
+    if (preLow > preHigh) return null;
 
-        if (preLow > preHigh)
-            return null;
+    if (preLow == preHigh) return new TreeNode(preorder[preLow]);
 
-        if (preLow == preHigh)
-            return new TreeNode(preorder[preLow]);
+    TreeNode node = new TreeNode(preorder[preLow]);
 
-        TreeNode node = new TreeNode(preorder[preLow]);
+    int mid = inLow;
+    while (inorder[mid] != preorder[preLow]) mid++;
 
-        int mid = inLow;
-        while (inorder[mid] != preorder[preLow])
-            mid++;
+    node.left =
+      dfsRecur(
+        preorder,
+        preLow + 1,
+        preLow + (mid - inLow),
+        inorder,
+        inLow,
+        mid - 1
+      );
 
-        node.left = dfsRecur(preorder, preLow + 1, preLow + (mid - inLow), inorder, inLow, mid - 1);
+    node.right =
+      dfsRecur(
+        preorder,
+        preLow + (mid - inLow) + 1,
+        preHigh,
+        inorder,
+        mid + 1,
+        inHigh
+      );
 
-        node.right = dfsRecur(preorder, preLow + (mid - inLow) + 1, preHigh, inorder, mid + 1, inHigh);
+    return node;
+  }
 
-        return node;
-
-    }
-
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
-
-        return dfsRecur(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1);
-
-    }
+  public TreeNode buildTree(int[] preorder, int[] inorder) {
+    return dfsRecur(
+      preorder,
+      0,
+      preorder.length - 1,
+      inorder,
+      0,
+      inorder.length - 1
+    );
+  }
 }

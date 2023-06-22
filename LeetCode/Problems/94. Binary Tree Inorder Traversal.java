@@ -16,26 +16,21 @@
  */
 class Solution {
 
-    void recur(TreeNode node, List<Integer> al) {
+  void recur(TreeNode node, List<Integer> al) {
+    if (node == null) return;
 
-        if (node == null)
-            return;
+    recur(node.left, al);
 
-        recur(node.left, al);
+    al.add(node.val);
 
-        al.add(node.val);
+    recur(node.right, al);
+  }
 
-        recur(node.right, al);
+  public List<Integer> inorderTraversal(TreeNode root) {
+    List<Integer> al = new ArrayList<>();
 
-    }
+    recur(root, al);
 
-    public List<Integer> inorderTraversal(TreeNode root) {
-
-        List<Integer> al = new ArrayList<>();
-
-        recur(root, al);
-
-        return al;
-
-    }
+    return al;
+  }
 }

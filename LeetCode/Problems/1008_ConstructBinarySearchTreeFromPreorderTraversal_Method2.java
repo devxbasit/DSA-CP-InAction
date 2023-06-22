@@ -18,28 +18,30 @@
 
 class Solution {
 
-    TreeNode bstRecur(int preorder[], int n, int currIndex, int min, int max) {
+  TreeNode bstRecur(int preorder[], int n, int currIndex, int min, int max) {
+    // time complexity - n^2
 
-        // time complexity - n^2
+    for (; currIndex < n; currIndex++) if (
+      preorder[currIndex] > min && preorder[currIndex] < max
+    ) break;
 
-        for (; currIndex < n; currIndex++)
-            if (preorder[currIndex] > min && preorder[currIndex] < max)
-                break;
+    if (currIndex >= n) return null;
 
-        if (currIndex >= n)
-            return null;
+    TreeNode node = new TreeNode(preorder[currIndex]);
 
-        TreeNode node = new TreeNode(preorder[currIndex]);
+    node.left = bstRecur(preorder, n, currIndex + 1, min, node.val);
+    node.right = bstRecur(preorder, n, currIndex + 1, node.val, max);
 
-        node.left = bstRecur(preorder, n, currIndex + 1, min, node.val);
-        node.right = bstRecur(preorder, n, currIndex + 1, node.val, max);
+    return node;
+  }
 
-        return node;
-    }
-
-    public TreeNode bstFromPreorder(int[] preorder) {
-
-        return bstRecur(preorder, preorder.length, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
-
-    }
+  public TreeNode bstFromPreorder(int[] preorder) {
+    return bstRecur(
+      preorder,
+      preorder.length,
+      0,
+      Integer.MIN_VALUE,
+      Integer.MAX_VALUE
+    );
+  }
 }

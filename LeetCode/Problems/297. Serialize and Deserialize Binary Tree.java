@@ -12,69 +12,58 @@
 
 public class Codec {
 
-    class Index {
+  class Index {
 
-        int i;
+    int i;
+  }
 
+  void serHelper(TreeNode node, StringBuilder S) {
+    if (node == null) {
+      S.append("$,");
+      return;
     }
 
-    void serHelper(TreeNode node, StringBuilder S) {
+    S.append(Integer.toString(node.val) + ",");
 
-        if (node == null) {
+    serHelper(node.left, S);
+    serHelper(node.right, S);
+  }
 
-            S.append("$,");
-            return;
-        }
+  // Encodes a tree to a single string.
+  public String serialize(TreeNode root) {
+    StringBuilder S = new StringBuilder();
+    serHelper(root, S);
 
-        S.append(Integer.toString(node.val) + ",");
+    return S.toString();
+  }
 
-        serHelper(node.left, S);
-        serHelper(node.right, S);
-
+  TreeNode desHelper(String S[], Index index) {
+    if (S[index.i].equals("$")) {
+      index.i++;
+      return null;
     }
 
-    // Encodes a tree to a single string.
-    public String serialize(TreeNode root) {
+    TreeNode root = new TreeNode();
+    root.val = Integer.parseInt(S[index.i]);
 
-        StringBuilder S = new StringBuilder();
-        serHelper(root, S);
+    index.i++;
+    root.left = desHelper(S, index);
 
-        return S.toString();
-    }
+    root.right = desHelper(S, index);
 
-    TreeNode desHelper(String S[], Index index) {
+    return root;
+  }
 
-        if (S[index.i].equals("$")) {
+  // Decodes your encoded data to tree.
+  public TreeNode deserialize(String data) {
+    String S[] = data.split(",");
 
-            index.i++;
-            return null;
+    Index index = new Index();
+    index.i = 0;
 
-        }
-
-        TreeNode root = new TreeNode();
-        root.val = Integer.parseInt(S[index.i]);
-
-        index.i++;
-        root.left = desHelper(S, index);
-
-        root.right = desHelper(S, index);
-
-        return root;
-    }
-
-    // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) {
-
-        String S[] = data.split(",");
-
-        Index index = new Index();
-        index.i = 0;
-
-        return desHelper(S, index);
-
-    }
+    return desHelper(S, index);
+  }
 }
-
 // Your Codec object will be instantiated and called as such:
 // Codec ser = new Codec();
 // Codec deser = new Codec();

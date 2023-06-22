@@ -1,99 +1,93 @@
 //Initial Template for Java
 
-import java.util.LinkedList; 
-import java.util.Queue; 
 import java.io.*;
 import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
-class Node{
-    int data;
-    Node left;
-    Node right;
-    Node(int data){
-        this.data = data;
-        left=null;
-        right=null;
-    }
+class Node {
+
+  int data;
+  Node left;
+  Node right;
+
+  Node(int data) {
+    this.data = data;
+    left = null;
+    right = null;
+  }
 }
 
 class GfG {
-    
-    static Node buildTree(String str){
-        
-        if(str.length()==0 || str.charAt(0)=='N'){
-            return null;
-        }
-        
-        String ip[] = str.split(" ");
-        // Create the root of the tree
-        Node root = new Node(Integer.parseInt(ip[0]));
-        // Push the root to the queue
-        
-        Queue<Node> queue = new LinkedList<>(); 
-        
-        queue.add(root);
-        // Starting from the second element
-        
-        int i = 1;
-        while(queue.size()>0 && i < ip.length) {
-            
-            // Get and remove the front of the queue
-            Node currNode = queue.peek();
-            queue.remove();
-                
-            // Get the current node's value from the string
-            String currVal = ip[i];
-                
-            // If the left child is not null
-            if(!currVal.equals("N")) {
-                    
-                // Create the left child for the current node
-                currNode.left = new Node(Integer.parseInt(currVal));
-                // Push it to the queue
-                queue.add(currNode.left);
-            }
-                
-            // For the right child
-            i++;
-            if(i >= ip.length)
-                break;
-                
-            currVal = ip[i];
-                
-            // If the right child is not null
-            if(!currVal.equals("N")) {
-                    
-                // Create the right child for the current node
-                currNode.right = new Node(Integer.parseInt(currVal));
-                    
-                // Push it to the queue
-                queue.add(currNode.right);
-            }
-            i++;
-        }
-        
-        return root;
+
+  static Node buildTree(String str) {
+    if (str.length() == 0 || str.charAt(0) == 'N') {
+      return null;
     }
-    
-	public static void main (String[] args) throws IOException{
-	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	        
-	        int t=Integer.parseInt(br.readLine());
-    
-	        while(t > 0){
-	            String s = br.readLine();
-    	    	Node root = buildTree(s);
-        	    Tree g = new Tree();
-			
-			    if(g.isSumTree(root) == true)
-    			    System.out.println(1);
-    			else 
-    			    System.out.println(0);
-                t--;
-            
-        }
+
+    String ip[] = str.split(" ");
+    // Create the root of the tree
+    Node root = new Node(Integer.parseInt(ip[0]));
+    // Push the root to the queue
+
+    Queue<Node> queue = new LinkedList<>();
+
+    queue.add(root);
+    // Starting from the second element
+
+    int i = 1;
+    while (queue.size() > 0 && i < ip.length) {
+      // Get and remove the front of the queue
+      Node currNode = queue.peek();
+      queue.remove();
+
+      // Get the current node's value from the string
+      String currVal = ip[i];
+
+      // If the left child is not null
+      if (!currVal.equals("N")) {
+        // Create the left child for the current node
+        currNode.left = new Node(Integer.parseInt(currVal));
+        // Push it to the queue
+        queue.add(currNode.left);
+      }
+
+      // For the right child
+      i++;
+      if (i >= ip.length) break;
+
+      currVal = ip[i];
+
+      // If the right child is not null
+      if (!currVal.equals("N")) {
+        // Create the right child for the current node
+        currNode.right = new Node(Integer.parseInt(currVal));
+
+        // Push it to the queue
+        queue.add(currNode.right);
+      }
+      i++;
     }
-  
+
+    return root;
+  }
+
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    int t = Integer.parseInt(br.readLine());
+
+    while (t > 0) {
+      String s = br.readLine();
+      Node root = buildTree(s);
+      Tree g = new Tree();
+
+      if (g.isSumTree(root) == true) System.out.println(
+        1
+      ); else System.out.println(0);
+      t--;
+    }
+  }
 }
 
 // } Driver Code Ends
@@ -112,44 +106,34 @@ class Node
 }
 */
 
-class Tree
-{    
-    
-    boolean flag = true;
-    
-    int sumTreeRecur(Node node){
-        
-        if (node.left == null && node.right == null)
-            return node.data;
+class Tree {
 
+  boolean flag = true;
 
-        int left = (node.left != null) ? sumTreeRecur(node.left) : 0;
-        
-        if (flag == false)
-            return -1;
-            
-        int right = (node.right != null) ? sumTreeRecur(node.right) : 0;
-        
-        if (flag == false)
-            return -1;
-            
-        if (left + right != node.data){
-            
-            flag = false;
-            return -1;
-            
-        }
-        
-        return left + right + node.data;
+  int sumTreeRecur(Node node) {
+    if (node.left == null && node.right == null) return node.data;
 
+    int left = (node.left != null) ? sumTreeRecur(node.left) : 0;
+
+    if (flag == false) return -1;
+
+    int right = (node.right != null) ? sumTreeRecur(node.right) : 0;
+
+    if (flag == false) return -1;
+
+    if (left + right != node.data) {
+      flag = false;
+      return -1;
     }
-    
-	boolean isSumTree(Node root)
-	{
-        // Your code here
-        
-        sumTreeRecur(root);
-        
-        return flag;
-    }
+
+    return left + right + node.data;
+  }
+
+  boolean isSumTree(Node root) {
+    // Your code here
+
+    sumTreeRecur(root);
+
+    return flag;
+  }
 }

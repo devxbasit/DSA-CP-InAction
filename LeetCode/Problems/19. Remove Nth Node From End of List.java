@@ -10,43 +10,36 @@
  * }
  */
 class Solution {
-    
-    class Counter {
-        
-        int counter;
-        Counter(int counter) { this.counter = counter; };
-        
+
+  class Counter {
+
+    int counter;
+
+    Counter(int counter) {
+      this.counter = counter;
     }
-    
-    ListNode recur(ListNode node, Counter C) {
-        
-        if (node == null) {
-            
-            C.counter--;
-            return null; 
-            
-        }
-        
-        node.next = recur(node.next, C);
-        
-        if (C.counter == 0) {
-            
-            C.counter--;
-            return node.next;
-            
-        }
-        
-        C.counter--;
-        return node;
-        
+  }
+
+  ListNode recur(ListNode node, Counter C) {
+    if (node == null) {
+      C.counter--;
+      return null;
     }
-    
-    
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        
-        Counter counter = new Counter(n);
-        
-        return recur(head, counter);
-        
+
+    node.next = recur(node.next, C);
+
+    if (C.counter == 0) {
+      C.counter--;
+      return node.next;
     }
+
+    C.counter--;
+    return node;
+  }
+
+  public ListNode removeNthFromEnd(ListNode head, int n) {
+    Counter counter = new Counter(n);
+
+    return recur(head, counter);
+  }
 }
