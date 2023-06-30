@@ -1,37 +1,34 @@
 // https://leetcode.com/problems/rotate-image/
+
+// TC -> O(N * N) + O(N * N) = O(2 * (N*N))
 class Solution {
 
-  void rowReverse(int matrix[][]) {
-    for (int row = 0; row < matrix.length; row++) {
-      int low = 0;
-      int high = matrix.length - 1;
-      int temp;
+  public void rotate(int[][] matrix) {
+    transpose(matrix);
+    rowReverse(matrix);
+  }
 
-      while (low < high) {
-        temp = matrix[row][low];
-        matrix[row][low] = matrix[row][high];
-        matrix[row][high] = temp;
-
-        low++;
-        high--;
+  public void transpose(int[][] matrix) {
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < i; j++) {
+        int temp = matrix[i][j];
+        matrix[i][j] = matrix[j][i];
+        matrix[j][i] = temp;
       }
     }
   }
 
-  public void rotate(int[][] matrix) {
-    int n = matrix.length;
+  public void rowReverse(int[][] matrix) {
+    for (int row = 0; row < matrix.length; row++) {
+      int i = 0, j = matrix[0].length - 1;
 
-    // transpose
-    for (int i = 0; i < n; i++) {
-      for (int j = i + 1; j < n; j++) {
-        int temp = matrix[i][j];
-
-        matrix[i][j] = matrix[j][i];
-
-        matrix[j][i] = temp;
+      while (i < j) {
+        int temp = matrix[row][i];
+        matrix[row][i] = matrix[row][j];
+        matrix[row][j] = temp;
+        i++;
+        j--;
       }
     }
-
-    rowReverse(matrix);
   }
 }
