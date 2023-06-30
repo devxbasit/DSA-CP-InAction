@@ -1,42 +1,116 @@
 // https://leetcode.com/problems/set-matrix-zeroes/
+
+// TC -> O(2 * (m * n)) - traversing the entire matrix 2 times
 class Solution {
 
   public void setZeroes(int[][] matrix) {
-    // method 1
-    // another method is use two 1D arrays, one for row and second for col
-    // and set corresponding row index or column index zero in 1D array
-
-    // method 2
-    // use first row and first col of given array as indexes
-
-    boolean firstColIsZero = false;
+    HashSet<Integer> rowSet = new HashSet<>();
+    HashSet<Integer> colSet = new HashSet<>();
 
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < matrix[0].length; j++) {
         if (matrix[i][j] == 0) {
-          if (j == 0) {
-            firstColIsZero = true;
+          rowSet.add(i);
+          colSet.add(j);
+        }
+      }
+    }
 
-            // mark row entry only
-            matrix[i][0] = 0;
-            continue;
-          }
+    for (int row : rowSet) {
+      for (int j = 0; j < matrix[0].length; j++) {
+        matrix[row][j] = 0;
+      }
+    }
 
-          // row entry
+    for (int col : colSet) {
+      for (int i = 0; i < matrix.length; i++) {
+        matrix[i][col] = 0;
+      }
+    }
+  }
+}
+
+// Approach 2
+// TC -> O(2 * (m * n)) - traversing the entire matrix 2 times
+class Solution {
+
+  public void setZeroes(int[][] matrix) {
+    boolean isFirstColZero = false, isFirstRowZero = false;
+
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < matrix[0].length; j++) {
+        if (matrix[i][j] == 0) {
+          if (i == 0) isFirstRowZero = true;
+          if (j == 0) isFirstColZero = true;
+
           matrix[i][0] = 0;
-
-          // col entry
           matrix[0][j] = 0;
         }
       }
     }
 
-    // ***
-    // start from 1,1
+    for (int i = 1; i < matrix.length; i++) {
+      if (matrix[i][0] == 0) {
+        for (int j = 1; j < matrix[0].length; j++) {
+          matrix[i][j] = 0;
+        }
+      }
+    }
+
+    for (int j = 1; j < matrix[0].length; j++) {
+      if (matrix[0][j] == 0) {
+        for (int i = 1; i < matrix.length; i++) {
+          matrix[i][j] = 0;
+        }
+      }
+    }
+
+    if (isFirstRowZero) {
+      for (int j = 0; j < matrix[0].length; j++) {
+        matrix[0][j] = 0;
+      }
+    }
+
+    if (isFirstColZero) {
+      for (int i = 0; i < matrix.length; i++) {
+        matrix[i][0] = 0;
+      }
+    }
+  }
+}
+
+// Approach 3 - similar as Approach 2, but with 1 flag only
+class Solution {
+
+  public void setZeroes(int[][] matrix) {
+    int col0 = 1;
+    // matrix[0][0] will be used to store info about first row, col0 for first column
+
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < matrix[0].length; j++) {
+        if (matrix[i][j] == 0) {
+          matrix[i][0] = 0;
+
+          if (j == 0) {
+            col0 = 0;
+          } else {
+            matrix[0][j] = 0;
+          }
+        }
+      }
+    }
 
     for (int i = 1; i < matrix.length; i++) {
-      for (int j = 1; j < matrix[0].length; j++) {
-        if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+      if (matrix[i][0] == 0) {
+        for (int j = 1; j < matrix[0].length; j++) {
+          matrix[i][j] = 0;
+        }
+      }
+    }
+
+    for (int j = 1; j < matrix[0].length; j++) {
+      if (matrix[0][j] == 0) {
+        for (int i = 1; i < matrix.length; i++) {
           matrix[i][j] = 0;
         }
       }
@@ -44,15 +118,15 @@ class Solution {
 
     // check for first row
     if (matrix[0][0] == 0) {
-      for (int col = 0; col < matrix[0].length; col++) {
-        matrix[0][col] = 0;
+      for (int j = 0; j < matrix[0].length; j++) {
+        matrix[0][j] = 0;
       }
     }
 
-    // check for first col
-    if (firstColIsZero) {
-      for (int row = 0; row < matrix.length; row++) {
-        matrix[row][0] = 0;
+    // check for first column
+    if (col0 == 0) {
+      for (int i = 0; i < matrix.length; i++) {
+        matrix[i][0] = 0;
       }
     }
   }

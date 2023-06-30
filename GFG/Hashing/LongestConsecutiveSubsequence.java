@@ -1,30 +1,4 @@
-// Java code to find Longest Consecutive Subsequence
-import java.util.*;
-import java.util.HashSet;
-import java.util.Scanner;
-
-class FindLongestSubsequence {
-
-  // Driver Code
-  public static void main(String args[]) {
-    Scanner sc = new Scanner(System.in);
-    int t = sc.nextInt();
-
-    while (t > 0) {
-      int n = sc.nextInt();
-      int a[] = new int[n];
-
-      for (int i = 0; i < n; i++) a[i] = sc.nextInt();
-
-      // Making object of GfG
-      GfG g = new GfG();
-
-      System.out.println(g.findLongestConseqSubseq(a, n));
-
-      t--;
-    }
-  }
-} // } Driver Code Ends
+// https://practice.geeksforgeeks.org/problems/longest-consecutive-subsequence2449/1
 
 class GfG {
 
@@ -50,5 +24,36 @@ class GfG {
     }
 
     return max;
+  }
+}
+
+// Approach 2
+
+class Solution {
+
+  // arr[] : the input array
+  // N : size of the array arr[]
+
+  //Function to return length of longest subsequence of consecutive integers.
+  static int findLongestConseqSubseq(int nums[], int N) {
+    if (nums.length < 2) return nums.length;
+
+    Arrays.sort(nums);
+
+    int maxSequence = Integer.MIN_VALUE;
+    int currMaxSequence = 1;
+
+    for (int i = 1; i < nums.length; i++) {
+      if (nums[i - 1] == nums[i]) continue;
+
+      if (nums[i - 1] + 1 == nums[i]) {
+        currMaxSequence++;
+      } else {
+        maxSequence = Math.max(maxSequence, currMaxSequence);
+        currMaxSequence = 1;
+      }
+    }
+
+    return currMaxSequence > maxSequence ? currMaxSequence : maxSequence;
   }
 }
