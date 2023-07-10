@@ -61,3 +61,44 @@ class Solution {
     return al;
   }
 }
+
+// Approach 2  - https://www.youtube.com/watch?v=DhFh8Kw7ymk
+// SC -> O(3 * K) , k is the number of triplets
+// TC -> O(N * N) = O(N^2)
+class Solution {
+
+  public List<List<Integer>> threeSum(int[] nums) {
+    Arrays.sort(nums);
+
+    List<List<Integer>> resultList = new ArrayList<>();
+
+    for (int i = 0; i < nums.length - 2; i++) {
+      while (i != 0 && i < nums.length - 2 && nums[i] == nums[i - 1]) {
+        i++;
+      }
+
+      int x = nums[i];
+      int target = -x;
+      int j = i + 1;
+      int k = nums.length - 1;
+
+      while (j < k) {
+        if (nums[j] + nums[k] == target) {
+          resultList.add(Arrays.asList(nums[i], nums[j], nums[k]));
+
+          while (j < k && nums[k] == nums[k - 1]) {
+            k--;
+          }
+
+          k--;
+        } else if (nums[j] + nums[k] < target) {
+          j++;
+        } else {
+          k--;
+        }
+      }
+    }
+
+    return resultList;
+  }
+}
