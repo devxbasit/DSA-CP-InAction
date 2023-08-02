@@ -29,14 +29,15 @@ class Solution {
 
   public int maxSubArray(int[] nums) {
     int maxSoFar = Integer.MIN_VALUE;
-    int currMax = 0;
+    int maxEndingHere = 0;
 
     for (int i = 0; i < nums.length; i++) {
-      currMax += nums[i];
+      maxEndingHere += nums[i];
+      maxSoFar = Math.max(maxSoFar, maxEndingHere);
 
-      maxSoFar = Math.max(maxSoFar, currMax);
-
-      if (currMax <= 0) currMax = 0;
+      if (maxEndingHere <= 0) {
+        maxEndingHere = 0;
+      }
     }
 
     return maxSoFar;

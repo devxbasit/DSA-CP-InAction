@@ -32,3 +32,19 @@ class Solution {
     return (n * (n + 1) / 2) - sum;
   }
 }
+
+// xor - same elements cancel each other
+class Solution {
+
+  public int missingNumber(int[] nums) {
+    int x = nums[0];
+    int y = 0;
+
+    for (int i = 1; i < nums.length; i++) {
+      x ^= nums[i];
+      y ^= i;
+    }
+
+    return ((x ^ y) == 0) ? nums.length : x ^ (y ^ nums.length);
+  }
+}
