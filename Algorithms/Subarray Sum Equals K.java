@@ -1,0 +1,1 @@
+count how many subarray, print, 

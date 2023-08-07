@@ -1,27 +1,29 @@
-// https://practice.geeksforgeeks.org/problems/insertion-sort/0
+// https://practice.geeksforgeeks.org/problems/insertion-sort/1
+
+// TC -> O(N^2)
 class Solution {
 
-  static void insert(int arr[], int i) {
-    // Your code here
+  static void insert(int nums[], int i) {
+    int temp = nums[i];
+    i--;
 
-    int num = arr[i];
-
-    int j = i - 1;
-
-    while (j > -1 && arr[j] > num) {
-      // swap
-      arr[j + 1] = arr[j];
-      j--;
+    while (i > -1 && temp < nums[i]) {
+      nums[i + 1] = nums[i];
+      i--;
     }
 
-    arr[j + 1] = num;
+    nums[i + 1] = temp;
   }
 
-  // Function to sort the array using insertion sort algorithm.
-  public void insertionSort(int arr[], int n) {
-    // code here
-    for (int i = 1; i < n; i++) {
-      insert(arr, i);
+  public void insertionSort(int nums[], int n) {
+    for (int i = 1; i < nums.length; i++) {
+      insert(nums, i);
     }
+  }
+
+  public void swap(int[] nums, int i, int j) {
+    int temp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = temp;
   }
 }
